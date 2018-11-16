@@ -20,7 +20,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Emarsys\Emarsys\Helper\Data as EmarsysDataHelper;
 use Emarsys\Emarsys\Model\ResourceModel\Order as OrderResourceModel;
 use Magento\Sales\Model\Order\CreditmemoRepository;
-use Magento\Sales\Model\OrderFactory;
+use Magento\Sales\Model\OrderFactory as MagentoOrderFactory;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\Stdlib\DateTime\Timezone as TimeZone;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -72,7 +72,7 @@ class Order extends AbstractModel
     protected $creditmemoRepository;
 
     /**
-     * @var OrderFactory
+     * @var MagentoOrderFactory
      */
     protected $salesOrderCollectionFactory;
 
@@ -128,7 +128,7 @@ class Order extends AbstractModel
      * @param EmarsysDataHelper $emarsysDataHelper
      * @param OrderResourceModel $orderResourceModel
      * @param CreditmemoRepository $creditmemoRepository
-     * @param OrderFactory $salesOrderCollectionFactory
+     * @param MagentoOrderFactory $salesOrderCollectionFactory
      * @param OrderQueueFactory $orderQueueFactory
      * @param CreditmemoExportStatusFactory $creditmemoExportStatusFactory
      * @param OrderExportStatusFactory $orderExportStatusFactory
@@ -150,7 +150,7 @@ class Order extends AbstractModel
         EmarsysDataHelper $emarsysDataHelper,
         OrderResourceModel $orderResourceModel,
         CreditmemoRepository $creditmemoRepository,
-        OrderFactory $salesOrderCollectionFactory,
+        MagentoOrderFactory $salesOrderCollectionFactory,
         OrderQueueFactory $orderQueueFactory,
         CreditmemoExportStatusFactory $creditmemoExportStatusFactory,
         OrderExportStatusFactory $orderExportStatusFactory,
@@ -625,7 +625,7 @@ class Order extends AbstractModel
      * @param $logsArray
      * @return array
      */
-    public function sendRequestToEmarsys($filePath, $csvFileName, $logsArray , $entityName = NULL)
+    public function sendRequestToEmarsys($filePath, $csvFileName, $logsArray, $entityName = null)
     {
         $syncResult = [];
 
@@ -650,7 +650,7 @@ class Order extends AbstractModel
         } else {
             //failed to upload file on emarsys
             $logsArray['emarsys_info'] = __('Failed to upload file on Emarsys');
-            $logsArray['description'] = __('Failed to upload file: "%1" on Emarsys. Emarasys response: "%2"' , $csvFileName, $apiExportResult['resultBody']);
+            $logsArray['description'] = __('Failed to upload file: "%1" on Emarsys. Emarasys response: "%2"', $csvFileName, $apiExportResult['resultBody']);
             $logsArray['action'] = 'synced to emarsys';
             $logsArray['message_type'] = 'Error';
             $this->logsHelper->logs($logsArray);
@@ -730,7 +730,7 @@ class Order extends AbstractModel
                         $values[] = $customerId;
                     }
                     //set product sku/id
-                    $values[] = $item->getSku();;
+                    $values[] = $item->getSku();
 
                     if (($item->getProductType() == \Magento\Bundle\Model\Product\Type::TYPE_CODE)) {
                         $parentId = null;
@@ -744,7 +744,6 @@ class Order extends AbstractModel
                         } elseif (isset($productOptions['product_calculations']) && $productOptions['product_calculations'] == 0) {
                             $price = 0;
                         }
-
                     } else {
                         if ($taxIncluded) {
                             $price = $useBaseCurrency ? ($item->getBaseRowTotal()  + $item->getBaseTaxAmount()) - $item->getBaseDiscountAmount() : ($item->getRowTotal() + $item->getTaxAmount()) - $item->getDiscountAmount();
@@ -816,7 +815,7 @@ class Order extends AbstractModel
                         $values[] = $customerId;
                     }
                     //set product sku/id
-                    $values[] = $item->getSku();;
+                    $values[] = $item->getSku();
 
                     if (($item->getProductType() == \Magento\Bundle\Model\Product\Type::TYPE_CODE)) {
                         $parentId = null;
@@ -830,7 +829,6 @@ class Order extends AbstractModel
                         } elseif (isset($productOptions['product_calculations']) && $productOptions['product_calculations'] == 0) {
                             $price = 0;
                         }
-
                     } else {
                         if ($taxIncluded) {
                             $price = $useBaseCurrency ? ($item->getBaseRowTotal()  + $item->getBaseTaxAmount()) - $item->getBaseDiscountAmount() : ($item->getRowTotal() + $item->getTaxAmount()) - $item->getDiscountAmount();
@@ -867,7 +865,7 @@ class Order extends AbstractModel
                 }
 
                 //if creditmemo have adjustments
-                if ($creditMemo->getAdjustment() != 0 ) {
+                if ($creditMemo->getAdjustment() != 0) {
                     $values = [];
                     //set order id
                     $values[] = $orderId;
@@ -1150,4 +1148,3 @@ class Order extends AbstractModel
         return;
     }
 }
-
