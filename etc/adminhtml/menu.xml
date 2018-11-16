@@ -9,9 +9,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Emarsys_Emarsys::parent" title="Emarsys" translate="title" module="Emarsys_Emarsys" sortOrder="20"
+        <add id="Emarsys_Emarsys::parent" title="Emarsys" module="Emarsys_Emarsys" sortOrder="20"
              dependsOnModule="Emarsys_Emarsys" resource="Emarsys_Emarsys::emarsys"/>
-        <add id="Emarsys_Emarsys::settings" title="Settings" translate="title" module="Emarsys_Emarsys" sortOrder="10"
+        <add id="Emarsys_Emarsys::settings" title="Settings" module="Emarsys_Emarsys" sortOrder="10"
              parent="Emarsys_Emarsys::parent" resource="Emarsys_Emarsys::emarsys"/>
         <add id="Emarsys_Emarsys::emarsys_setting_connection" title="Connection" module="Emarsys_Emarsys" sortOrder="20"
              parent="Emarsys_Emarsys::settings" action="adminhtml/system_config/edit/section/emarsys_settings/"
@@ -39,7 +39,7 @@
         <add id="Emarsys_Emarsys::emarsys_emarsysadminindex4" title="Logs" module="Emarsys_Emarsys" sortOrder="80"
              parent="Emarsys_Emarsys::settings" action="adminhtml/system_config/edit/section/logs/"
              resource="Emarsys_Emarsys::emarsys"/>
-        <add id="Emarsys_Emarsys::mapping" title="Mappings" translate="title" module="Emarsys_Emarsys" sortOrder="30"
+        <add id="Emarsys_Emarsys::mapping" title="Mappings" module="Emarsys_Emarsys" sortOrder="30"
              parent="Emarsys_Emarsys::parent" resource="Emarsys_Emarsys::emarsys"/>
         <add id="Emarsys_Emarsys::emarsys_customer_mapping" title="Customer" module="Emarsys_Emarsys" sortOrder="31"
              parent="Emarsys_Emarsys::mapping" action="emarsys_emarsys/mapping_customer/index"
@@ -56,7 +56,7 @@
         <add id="Emarsys_Emarsys::emarsys_order_mapping" title="Order" module="Emarsys_Emarsys" sortOrder="35"
              parent="Emarsys_Emarsys::mapping" action="emarsys_emarsys/mapping_order/index"
              resource="Emarsys_Emarsys::emarsys"/>
-        <add id="Emarsys_Emarsys::operations" title="Operations" translate="title" module="Emarsys_Emarsys" sortOrder="40"
+        <add id="Emarsys_Emarsys::operations" title="Operations" module="Emarsys_Emarsys" sortOrder="40"
              parent="Emarsys_Emarsys::parent" resource="Emarsys_Emarsys::emarsys"/>
         <add id="Emarsys_Emarsys::emarsys_check_list" title="Installation Checklist" module="Emarsys_Emarsys" sortOrder="10"
              parent="Emarsys_Emarsys::operations" action="emarsys_emarsys/installation/checklist"
@@ -71,7 +71,7 @@
         <add id="Emarsys_Emarsys::emarsys_emarsysadminindex11" title="Scheduler" module="Emarsys_Emarsys" sortOrder="35"
              parent="Emarsys_Emarsys::operations" action="emarsys_emarsys/cronschedule/index"
              resource="Emarsys_Emarsys::operations"/>
-        <add id="Emarsys_Emarsys::help"  title="Help" translate="title" module="Emarsys_Emarsys" sortOrder="40" parent="Emarsys_Emarsys::parent"  resource="Emarsys_Emarsys::support"/>
-        <add id="Emarsys_Emarsys::support" title="Support" translate="title" module="Emarsys_Emarsys" sortOrder="41" parent="Emarsys_Emarsys::help" action="emarsys_emarsys/support" resource="Emarsys_Emarsys::support"/>
+        <add id="Emarsys_Emarsys::help"  title="Help" module="Emarsys_Emarsys" sortOrder="40" parent="Emarsys_Emarsys::parent"  resource="Emarsys_Emarsys::support"/>
+        <add id="Emarsys_Emarsys::support" title="Support" module="Emarsys_Emarsys" sortOrder="41" parent="Emarsys_Emarsys::help" action="emarsys_emarsys/support" resource="Emarsys_Emarsys::support"/>
     </menu>
 </config>
