@@ -1,15 +1,7 @@
 {
-  "name": "emarsys/emarsys",
+  "name": "gzcascade/emarsys",
   "description": "Emarsys Magento 2 module",
-  "version": "1.0.13",
   "type": "magento2-module",
-  "authors": [
-    {
-      "name": "Roman Stepanov",
-      "email": "roman.stepanov@emarsys.com",
-      "homepage": "https://www.emarsys.com"
-    }
-  ],
   "license": "MIT",
   "require": {
     "sabre/dav": "~3.2.0"
@@ -21,5 +13,8 @@
     "psr-4": {
       "Emarsys\\Emarsys\\": ""
     }
+  },
+  "replace": {
+    "emarsys/emarsys": "~1.0.12"
   }
 }
