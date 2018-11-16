@@ -144,6 +144,7 @@ class SendEmail extends AbstractModel
                 //check emarsys transaction emails enable
                 if ($this->checkTransactionalMailEnabled($websiteId)) {
                     $emarsysPlaceholdersData = [];
+                    $emarsysAttachments = false;
 
                     if (is_array($_emarsysPlaceholdersData)) {
                         if (isset($_emarsysPlaceholdersData['emarsysPlaceholders'])) {
@@ -151,6 +152,9 @@ class SendEmail extends AbstractModel
                         }
                         if (isset($_emarsysPlaceholdersData['emarsysEventId'])) {
                             $emarsysApiEventID = $_emarsysPlaceholdersData['emarsysEventId'];
+                        }
+                        if (isset($_emarsysPlaceholdersData['attachment'])) {
+                            $emarsysAttachments = $_emarsysPlaceholdersData['attachment'];
                         }
                     }
 
@@ -198,7 +202,7 @@ class SendEmail extends AbstractModel
                         $emailKeyId = $this->customerResourceModel->getKeyId('Email', $storeId);
                         $buildRequest[$emailKeyId] = $externalId;
 
-			            $uniqueKeyId = $this->customerResourceModel->getKeyId('Magento Customer Unique ID', $storeId);
+                        $uniqueKeyId = $this->customerResourceModel->getKeyId('Magento Customer Unique ID', $storeId);
                         $buildRequest[$uniqueKeyId] = $externalId . "#" . $websiteId . "#" . $storeId;
 
                         //log information that is about to send for contact sync
@@ -233,6 +237,10 @@ class SendEmail extends AbstractModel
                                 "external_id" => $buildRequest[$buildRequest['key_id']],
                                 "data" => $emarsysPlaceholdersData
                             ];
+                            
+                            if ($emarsysAttachments) {
+                                $arrCustomerData['attachment'] = $emarsysAttachments;
+                            }
 
                             //log information that is about to send for email sync
                             $emailtriggerReq = 'POST ' . " event/$emarsysApiEventID/trigger: " . json_encode($arrCustomerData, JSON_PRETTY_PRINT);
@@ -349,7 +357,9 @@ class SendEmail extends AbstractModel
     public function checkTransactionalMailEnabled($websiteId)
     {
         $status = $this->dataHelper->getConfigValue(
-            'transaction_mail/transactionmail/enable_customer', 'websites', $websiteId
+            'transaction_mail/transactionmail/enable_customer',
+            'websites',
+            $websiteId
         );
 
         return $status;
